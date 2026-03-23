@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import AppLayout from "../components/layout/AppLayout";
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -6,10 +6,8 @@ import Home from "../pages/Home";
 import LoginPage from "../pages/LoginPage";
 import AutoLoginPage from "../pages/AutoLoginPage";
 import FilePage from "../pages/FilePage";
-
-function MailPage() {
-  return <div>메일 화면 준비 중</div>;
-}
+import MailPage from "../pages/MailPage";
+import PagingPage from "../pages/PagingPage";
 
 function CachePage() {
   return <div>캐시 화면 준비 중</div>;
@@ -37,6 +35,7 @@ export default function AppRoutes() {
         <Route path="files" element={<FilePage />} />
         <Route path="mail" element={<MailPage />} />
         <Route path="cache" element={<CachePage />} />
+        <Route path="paging" element={<PagingPage />} />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />

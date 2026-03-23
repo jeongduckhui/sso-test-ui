@@ -40,6 +40,13 @@ export const menuConfig = [
         path: "/cache",
         icon: Database,
       },
+
+      {
+        key: "paging",
+        label: "페이징",
+        path: "/paging",
+        icon: FileText,
+      },
     ],
   },
   {
