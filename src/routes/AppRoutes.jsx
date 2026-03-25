@@ -8,6 +8,10 @@ import AutoLoginPage from "../pages/AutoLoginPage";
 import FilePage from "../pages/FilePage";
 import MailPage from "../pages/MailPage";
 import PagingPage from "../pages/PagingPage";
+import MailSendPage from "../pages/MailSendPage";
+import MailLogPage from "../pages/MailLogPage";
+import MailSystemPage from "../pages/MailSystemPage";
+import MailUserPage from "../pages/MailUserPage";
 
 function CachePage() {
   return <div>캐시 화면 준비 중</div>;
@@ -33,7 +37,9 @@ export default function AppRoutes() {
       >
         <Route index element={<Home />} />
         <Route path="files" element={<FilePage />} />
-        <Route path="mail" element={<MailPage />} />
+        <Route path="mail/user" element={<MailUserPage />} />
+        <Route path="mail/system" element={<MailSystemPage />} />
+        <Route path="mail/log" element={<MailLogPage />} />
         <Route path="cache" element={<CachePage />} />
         <Route path="paging" element={<PagingPage />} />
       </Route>

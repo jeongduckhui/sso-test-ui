@@ -29,9 +29,21 @@ export const menuConfig = [
         icon: FolderOpen,
       },
       {
-        key: "mail",
-        label: "메일",
-        path: "/mail",
+        key: "mailsend",
+        label: "개인 메일 발송",
+        path: "/mail/user",
+        icon: Mail,
+      },
+      {
+        key: "mailsend",
+        label: "시스템 메일 발송",
+        path: "/mail/system",
+        icon: Mail,
+      },
+      {
+        key: "maillog",
+        label: "메일 로그 관리",
+        path: "/mail/log",
         icon: Mail,
       },
       {
