@@ -12,6 +12,7 @@ import MailSendPage from "../pages/MailSendPage";
 import MailLogPage from "../pages/MailLogPage";
 import MailSystemPage from "../pages/MailSystemPage";
 import MailUserPage from "../pages/MailUserPage";
+import MessageTestPage from "../pages/MessageTestPage";
 
 function CachePage() {
   return <div>캐시 화면 준비 중</div>;
@@ -40,6 +41,7 @@ export default function AppRoutes() {
         <Route path="mail/user" element={<MailUserPage />} />
         <Route path="mail/system" element={<MailSystemPage />} />
         <Route path="mail/log" element={<MailLogPage />} />
+        <Route path="message" element={<MessageTestPage />} />
         <Route path="cache" element={<CachePage />} />
         <Route path="paging" element={<PagingPage />} />
       </Route>

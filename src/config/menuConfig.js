@@ -5,6 +5,7 @@ import {
   Database,
   Shield,
   FileText,
+  MessageSquareText,
 } from "lucide-react";
 
 export const menuConfig = [
@@ -45,6 +46,12 @@ export const menuConfig = [
         label: "메일 로그 관리",
         path: "/mail/log",
         icon: Mail,
+      },
+      {
+        key: "message",
+        label: "메시지",
+        path: "/message",
+        icon: MessageSquareText,
       },
       {
         key: "cache",
