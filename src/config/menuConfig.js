@@ -59,7 +59,18 @@ export const menuConfig = [
         path: "/cache",
         icon: Database,
       },
-
+      {
+        key: "cacheAdmin",
+        label: "캐시 관리자",
+        path: "/cache/admin",
+        icon: Database,
+      },
+      {
+        key: "cacheMonitor",
+        label: "캐시 모니터",
+        path: "/cache/monitor",
+        icon: Database,
+      },
       {
         key: "paging",
         label: "페이징",

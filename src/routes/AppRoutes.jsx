@@ -6,17 +6,14 @@ import Home from "../pages/Home";
 import LoginPage from "../pages/LoginPage";
 import AutoLoginPage from "../pages/AutoLoginPage";
 import FilePage from "../pages/FilePage";
-import MailPage from "../pages/MailPage";
 import PagingPage from "../pages/PagingPage";
-import MailSendPage from "../pages/MailSendPage";
 import MailLogPage from "../pages/MailLogPage";
 import MailSystemPage from "../pages/MailSystemPage";
 import MailUserPage from "../pages/MailUserPage";
 import MessageTestPage from "../pages/MessageTestPage";
-
-function CachePage() {
-  return <div>캐시 화면 준비 중</div>;
-}
+import CachePage from "../pages/CachePage";
+import CacheAdminPage from "../pages/CacheAdminPage";
+import CacheMonitorPage from "../pages/CacheMonitorPage";
 
 function NotFoundPage() {
   return <div style={{ padding: 24 }}>404 - 페이지를 찾을 수 없습니다.</div>;
@@ -43,6 +40,8 @@ export default function AppRoutes() {
         <Route path="mail/log" element={<MailLogPage />} />
         <Route path="message" element={<MessageTestPage />} />
         <Route path="cache" element={<CachePage />} />
+        <Route path="cache/admin" element={<CacheAdminPage />} />
+        <Route path="cache/monitor" element={<CacheMonitorPage />} />
         <Route path="paging" element={<PagingPage />} />
       </Route>
 
