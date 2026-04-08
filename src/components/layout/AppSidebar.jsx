@@ -1,8 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { menuConfig } from "../../config/menuConfig";
+import { openMenuTab } from "../../txlog/screenContext";
 
 export default function AppSidebar({ collapsed, onToggle }) {
+  const handleMenuClick = (item) => {
+    openMenuTab(item);
+  };
+
   return (
     <aside className={`app-sidebar ${collapsed ? "collapsed" : ""}`}>
       <div className="app-sidebar-header">
@@ -23,6 +28,7 @@ export default function AppSidebar({ collapsed, onToggle }) {
             <div className="sidebar-menu-list">
               {section.items.map((item) => {
                 const Icon = item.icon;
+
                 return (
                   <NavLink
                     key={item.key}
@@ -31,6 +37,7 @@ export default function AppSidebar({ collapsed, onToggle }) {
                     className={({ isActive }) =>
                       `sidebar-menu-item ${isActive ? "active" : ""}`
                     }
+                    onClick={() => handleMenuClick(item)}
                   >
                     <Icon size={18} />
                     {!collapsed && <span>{item.label}</span>}

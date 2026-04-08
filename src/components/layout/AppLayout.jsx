@@ -3,18 +3,7 @@ import { useMemo, useState } from "react";
 import AppSidebar from "./AppSidebar";
 import AppHeader from "./AppHeader";
 import TabBar from "./TabBar";
-import { menuConfig } from "../../config/menuConfig";
-
-function findMenuByPath(pathname) {
-  for (const section of menuConfig) {
-    for (const item of section.items) {
-      if (item.path === pathname) {
-        return item;
-      }
-    }
-  }
-  return null;
-}
+import { findMenuByPath } from "../../config/menuConfig";
 
 export default function AppLayout() {
   const location = useLocation();

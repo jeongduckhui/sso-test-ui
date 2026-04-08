@@ -30,19 +30,19 @@ export const menuConfig = [
         icon: FolderOpen,
       },
       {
-        key: "mailsend",
+        key: "mailUser",
         label: "개인 메일 발송",
         path: "/mail/user",
         icon: Mail,
       },
       {
-        key: "mailsend",
+        key: "mailSystem",
         label: "시스템 메일 발송",
         path: "/mail/system",
         icon: Mail,
       },
       {
-        key: "maillog",
+        key: "mailLog",
         label: "메일 로그 관리",
         path: "/mail/log",
         icon: Mail,
@@ -97,3 +97,25 @@ export const menuConfig = [
     ],
   },
 ];
+
+export const allMenuItem = menuConfig.reduce((acc, section) => {
+  section.items.forEach((item) => {
+    acc[item.key] = item;
+  });
+  return acc;
+}, {});
+
+export function findMenuByPath(pathname) {
+  for (const section of menuConfig) {
+    for (const item of section.items) {
+      if (item.path === pathname) {
+        return item;
+      }
+    }
+  }
+  return null;
+}
+
+export function findMenuByKey(key) {
+  return allMenuItem[key] ?? null;
+}

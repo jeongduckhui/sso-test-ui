@@ -15,6 +15,8 @@ export default function MailLogPage() {
     try {
       setLoading(true);
 
+      debugger;
+
       const res = await api.get("/mail/logs", {
         params: {
           recipient,
@@ -23,7 +25,7 @@ export default function MailLogPage() {
         },
       });
 
-      setList(res.data);
+      setList(res.data.data);
     } catch (e) {
       console.error(e);
       alert("조회 실패");

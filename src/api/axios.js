@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getOrCreateDeviceId } from "../auth/deviceId";
+import { getCurrentScreenContext } from "../txlog/screenContext"; // ✅ 수정: 현재 화면 컨텍스트 import 추가
 
 export const api = axios.create({
   baseURL: "http://localhost:8081",
@@ -15,7 +16,6 @@ let isRefreshing = false;
 let refreshSubscribers = [];
 let authFailed = false;
 
-// 🔥 refresh 실패 시 완전 차단
 function isAuthFailed() {
   return authFailed;
 }
@@ -45,6 +45,37 @@ function clearAuthState() {
   authFailed = true;
 }
 
+// 수정: 공통 헤더 세팅 함수 추가
+function applyCommonHeaders(config) {
+  config.headers = config.headers ?? {};
+
+  const token = localStorage.getItem("accessToken");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  const deviceId = getOrCreateDeviceId();
+  config.headers["X-Device-Id"] = deviceId;
+
+  // 수정: 현재 활성 화면 정보 헤더 세팅
+  const screenContext = getCurrentScreenContext();
+  if (screenContext) {
+    config.headers["X-Program-Id"] = screenContext.programId ?? "";
+    config.headers["X-Program-Name"] = screenContext.programName ?? "";
+    config.headers["X-Program-Title-Name"] =
+      screenContext.programTitleName ?? "";
+    config.headers["X-Func-Id"] = screenContext.funcId ?? "";
+    config.headers["X-Menu-Key"] = screenContext.menuKey ?? "";
+  }
+
+  // 수정: API 호출 시 전달한 txLog 정보로 svcId / transactionType 헤더 세팅
+  const txLog = config.txLog ?? {};
+  config.headers["X-Svc-Id"] = txLog.svcId ?? "";
+  config.headers["X-Transaction-Type"] = txLog.transactionType ?? "";
+
+  return config;
+}
+
 //
 // REQUEST INTERCEPTOR
 //
@@ -54,25 +85,13 @@ api.interceptors.request.use((config) => {
     return config;
   }
 
-  const token = localStorage.getItem("accessToken");
-
-  if (token) {
-    config.headers = config.headers ?? {};
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
-  const deviceId = getOrCreateDeviceId();
-
-  config.headers = config.headers ?? {};
-  config.headers["X-Device-Id"] = deviceId;
-
-  return config;
+  return applyCommonHeaders(config); // 수정: 기존 직접 세팅 대신 공통 함수 호출
 });
 
 refreshApi.interceptors.request.use((config) => {
-  const deviceId = getOrCreateDeviceId();
-
   config.headers = config.headers ?? {};
+
+  const deviceId = getOrCreateDeviceId();
   config.headers["X-Device-Id"] = deviceId;
 
   return config;
@@ -94,12 +113,10 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    // 🔥 이미 인증 실패 상태면 아무 것도 하지 않음
     if (isAuthFailed()) {
       return Promise.reject(error);
     }
 
-    // refresh / logout 요청은 interceptor에서 처리 안함
     if (
       requestUrl.includes("/auth/refresh") ||
       requestUrl.includes("/auth/logout")
@@ -107,7 +124,6 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    // 🔥 refresh 실패 케이스 (401 + 409 둘 다 처리)
     if (status === 401 && requestUrl.includes("/auth/refresh")) {
       clearAuthState();
       moveToLoginOnce();
@@ -120,7 +136,6 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    // 🔥 일반 API 401 → refresh 시도
     if (status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 

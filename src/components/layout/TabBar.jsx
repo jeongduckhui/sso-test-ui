@@ -1,48 +1,54 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
-import { menuConfig } from "../../config/menuConfig";
-
-function getMenuLabel(pathname) {
-  for (const section of menuConfig) {
-    for (const item of section.items) {
-      if (item.path === pathname) return item.label;
-    }
-  }
-  return pathname;
-}
+import { findMenuByPath } from "../../config/menuConfig";
+import {
+  activateTabByPath,
+  closeTabByPath,
+  getOpenedTabs,
+  openMenuTab,
+} from "../../txlog/screenContext";
 
 export default function TabBar() {
   const location = useLocation();
   const navigate = useNavigate();
-  const [tabs, setTabs] = useState([]);
+  const [tabs, setTabs] = useState(() => getOpenedTabs());
 
   useEffect(() => {
     const pathname = location.pathname;
 
-    if (pathname === "/login" || pathname === "/auto-login") return;
+    if (pathname === "/login" || pathname === "/auto-login") {
+      return;
+    }
 
-    setTabs((prev) => {
-      const exists = prev.find((tab) => tab.path === pathname);
-      if (exists) return prev;
+    const menu = findMenuByPath(pathname);
 
-      return [...prev, { path: pathname, label: getMenuLabel(pathname) }];
-    });
+    if (menu) {
+      const nextTabs = openMenuTab(menu);
+      setTabs(nextTabs);
+      return;
+    }
+
+    activateTabByPath(pathname);
+    setTabs(getOpenedTabs());
   }, [location.pathname]);
+
+  const handleTabClick = (path) => {
+    activateTabByPath(path);
+    navigate(path);
+  };
 
   const closeTab = (path, e) => {
     e.stopPropagation();
 
-    setTabs((prev) => {
-      const nextTabs = prev.filter((tab) => tab.path !== path);
+    const nextTabs = closeTabByPath(path);
+    setTabs(nextTabs);
 
-      if (location.pathname === path) {
-        const fallback = nextTabs[nextTabs.length - 1] || { path: "/" };
-        navigate(fallback.path);
-      }
-
-      return nextTabs;
-    });
+    if (location.pathname === path) {
+      const fallback = nextTabs[nextTabs.length - 1] || { path: "/" };
+      activateTabByPath(fallback.path);
+      navigate(fallback.path);
+    }
   };
 
   return (
@@ -51,9 +57,10 @@ export default function TabBar() {
         <div
           key={tab.path}
           className={`tab-item ${location.pathname === tab.path ? "active" : ""}`}
-          onClick={() => navigate(tab.path)}
+          onClick={() => handleTabClick(tab.path)}
         >
           <span>{tab.label}</span>
+
           {tab.path !== "/" && (
             <button
               className="tab-close-btn"
