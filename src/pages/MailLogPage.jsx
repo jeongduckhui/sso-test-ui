@@ -15,8 +15,6 @@ export default function MailLogPage() {
     try {
       setLoading(true);
 
-      debugger;
-
       const res = await api.get("/mail/logs", {
         params: {
           recipient,

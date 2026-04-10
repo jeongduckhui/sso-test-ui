@@ -77,6 +77,18 @@ export const menuConfig = [
         path: "/paging",
         icon: FileText,
       },
+      {
+        key: "txlog",
+        label: "트랜잭션 로그",
+        path: "/txlog",
+        icon: FileText,
+      },
+      {
+        key: "txlogdbsetting",
+        label: "트랜잭션 로그 DB",
+        path: "/txlogdbsetting",
+        icon: FileText,
+      },
     ],
   },
   {

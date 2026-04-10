@@ -14,6 +14,8 @@ import MessageTestPage from "../pages/MessageTestPage";
 import CachePage from "../pages/CachePage";
 import CacheAdminPage from "../pages/CacheAdminPage";
 import CacheMonitorPage from "../pages/CacheMonitorPage";
+import TxLogTestPage from "../pages/TxLogTestPage";
+import TxLogTestPageDBSetting from "../pages/TxLogTestPageDBSetting";
 
 function NotFoundPage() {
   return <div style={{ padding: 24 }}>404 - 페이지를 찾을 수 없습니다.</div>;
@@ -43,6 +45,8 @@ export default function AppRoutes() {
         <Route path="cache/admin" element={<CacheAdminPage />} />
         <Route path="cache/monitor" element={<CacheMonitorPage />} />
         <Route path="paging" element={<PagingPage />} />
+        <Route path="txlog" element={<TxLogTestPage />} />
+        <Route path="txlogdbsetting" element={<TxLogTestPageDBSetting />} />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />
