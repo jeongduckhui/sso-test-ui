@@ -5,30 +5,6 @@ import { api } from "../api/axios";
 
 export default function TxLogTestPageDBSetting() {
   const [lastAction, setLastAction] = useState("");
-  const [buttons, setButtons] = useState([]);
-
-  /**
-   * 메뉴 조회 (mock)
-   */
-  useEffect(() => {
-    // ⭐ 실제로는 API 호출
-    const fetchMenu = async () => {
-      // mock 데이터
-      const menu = {
-        programId: "TX_TEST_DB",
-        buttons: [
-          { type: "SEARCH", useYn: "Y" },
-          { type: "SAVE", useYn: "Y" },
-          { type: "OPTION", useYn: "N" },
-          { type: "RESET", useYn: "Y" },
-        ],
-      };
-
-      setButtons(menu.buttons);
-    };
-
-    fetchMenu();
-  }, []);
 
   /**
    * 버튼 클릭
