@@ -37,7 +37,7 @@ export default function TxLogTestPageDBSetting() {
     setLastAction(type);
 
     try {
-      await api.get("/test/mock");
+      // await api.get("/test/mock");
 
       alert(`${type} 요청 완료 (DB 버튼 기반)`);
     } catch (e) {
@@ -50,13 +50,7 @@ export default function TxLogTestPageDBSetting() {
     <PageContainer
       title="트랜잭션 로그 테스트 (DB 버튼)"
       description="메뉴에서 버튼 정보 받아서 렌더링"
-      actions={
-        <CommonActionButtonsDBSetting
-          buttons={buttons}
-          svcId="TX_TEST_DB"
-          onAction={handleAction}
-        />
-      }
+      actions={<CommonActionButtonsDBSetting onAction={handleAction} />}
     >
       <div className="search-form">
         <div className="search-row">

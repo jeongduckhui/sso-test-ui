@@ -24,6 +24,9 @@ function toScreenContext(menu) {
     programName: menu.key ?? "",
     programTitleName: menu.key ?? "",
     funcId: menu.key ?? "",
+
+    // 공통버튼 추가
+    buttons: menu.buttons ?? [],
   };
 }
 

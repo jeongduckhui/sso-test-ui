@@ -69,8 +69,6 @@ function applyCommonHeaders(config) {
     config.headers["X-Menu-Key"] = screenContext.menuKey ?? "";
   }
 
-  debugger;
-
   // 수정: API 호출 시 전달한 txLog 정보로 svcId / transactionType 헤더 세팅
   const txLog = getCurrentTxLog() ?? {};
 

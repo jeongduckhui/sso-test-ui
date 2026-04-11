@@ -88,6 +88,12 @@ export const menuConfig = [
         label: "트랜잭션 로그 DB",
         path: "/txlogdbsetting",
         icon: FileText,
+        buttons: [
+          { type: "SEARCH", useYn: "Y" },
+          { type: "SAVE", useYn: "Y" },
+          { type: "OPTION", useYn: "Y" },
+          { type: "RESET", useYn: "N" },
+        ],
       },
     ],
   },

@@ -1,22 +1,16 @@
 import React from "react";
 import { setCurrentTxLog } from "../../txlog/txLogContext";
+import { getCurrentScreenContext } from "../../txlog/screenContext";
 
 /**
- * DB 기반 공통 버튼
- *
- * props:
- * - buttons: [{ type: "SEARCH", useYn: "Y" }]
- * - svcId: 서비스 ID (화면별)
- * - onAction
+ * 완전 자동 공통버튼
+ * 👉 화면에서 props 필요 없음
  */
-export default function CommonActionButtonsDBSetting({
-  buttons = [],
-  svcId = "COMMON",
-  onAction,
-}) {
-  /**
-   * 버튼 클릭
-   */
+export default function CommonActionButtonsDBSetting({ onAction }) {
+  const screenContext = getCurrentScreenContext();
+  const buttons = screenContext?.buttons ?? [];
+  const svcId = screenContext?.programId ?? "COMMON";
+
   const handleClick = (type) => {
     const loggable = type === "SEARCH" || type === "SAVE";
 
@@ -31,9 +25,6 @@ export default function CommonActionButtonsDBSetting({
     }
   };
 
-  /**
-   * 버튼 렌더링
-   */
   const renderButton = (btn) => {
     if (btn.useYn !== "Y") return null;
 
