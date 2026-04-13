@@ -8,6 +8,7 @@ import {
   getOpenedTabs,
   openMenuTab,
 } from "../../txlog/screenContext";
+import { api } from "../../api/axios"; // 🔥 추가
 
 export default function TabBar() {
   const location = useLocation();
@@ -24,8 +25,9 @@ export default function TabBar() {
     const menu = findMenuByPath(pathname);
 
     if (menu) {
-      const nextTabs = openMenuTab(menu);
-      setTabs(nextTabs);
+      const result = openMenuTab(menu);
+
+      setTabs(result.tabs);
       return;
     }
 
@@ -38,8 +40,23 @@ export default function TabBar() {
     navigate(path);
   };
 
-  const closeTab = (path, e) => {
+  const closeTab = async (path, e) => {
     e.stopPropagation();
+
+    // 🔥 현재 탭 정보 찾기 (funcId용)
+    const tab = tabs.find((t) => t.path === path);
+    const funcId = tab?.key;
+
+    // 🔥 종료 로그 API 호출
+    try {
+      await api.post("/user-access-log/end", null, {
+        headers: {
+          "X-Func-Id": funcId,
+        },
+      });
+    } catch (err) {
+      console.error("접속 종료 로그 실패", err);
+    }
 
     const nextTabs = closeTabByPath(path);
     setTabs(nextTabs);

@@ -67,7 +67,7 @@ export function setOpenedTabs(tabs) {
 
 export function openMenuTab(menu) {
   if (!menu) {
-    return getOpenedTabs();
+    return { tabs: getOpenedTabs(), isNew: false };
   }
 
   const tabs = getOpenedTabs();
@@ -87,7 +87,10 @@ export function openMenuTab(menu) {
   setOpenedTabs(nextTabs);
   setCurrentScreenContextByMenu(menu);
 
-  return nextTabs;
+  return {
+    tabs: nextTabs,
+    isNew: !exists, // 🔥 핵심
+  };
 }
 
 export function activateTabByPath(pathname) {

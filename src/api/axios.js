@@ -65,8 +65,14 @@ function applyCommonHeaders(config) {
     config.headers["X-Program-Name"] = screenContext.programName ?? "";
     config.headers["X-Program-Title-Name"] =
       screenContext.programTitleName ?? "";
-    config.headers["X-Func-Id"] = screenContext.funcId ?? "";
+    // 🔥 핵심 수정
+    if (!config.headers["X-Func-Id"]) {
+      config.headers["X-Func-Id"] = screenContext.funcId ?? "";
+    }
     config.headers["X-Menu-Key"] = screenContext.menuKey ?? "";
+
+    // 임시값
+    config.headers["X-System-Type-Code"] = "testSystemTypeCode";
   }
 
   // 수정: API 호출 시 전달한 txLog 정보로 svcId / transactionType 헤더 세팅

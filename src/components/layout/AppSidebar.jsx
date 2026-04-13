@@ -2,10 +2,16 @@ import { NavLink } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { menuConfig } from "../../config/menuConfig";
 import { openMenuTab } from "../../txlog/screenContext";
+import { api } from "../../api/axios"; // 🔥 추가
 
 export default function AppSidebar({ collapsed, onToggle }) {
   const handleMenuClick = (item) => {
-    openMenuTab(item);
+    const result = openMenuTab(item);
+
+    // 🔥 최초 생성일 때만 호출
+    if (result.isNew) {
+      api.post("/user-access-log");
+    }
   };
 
   return (
