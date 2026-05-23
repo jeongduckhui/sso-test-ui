@@ -95,6 +95,12 @@ export const menuConfig = [
           { type: "RESET", useYn: "N" },
         ],
       },
+      {
+        key: "snapshotGrid",
+        label: "스냅샷 그리드",
+        path: "/snapshot-grid",
+        icon: Database,
+      },
     ],
   },
   {
