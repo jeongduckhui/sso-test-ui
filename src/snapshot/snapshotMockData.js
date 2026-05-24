@@ -1,4 +1,6 @@
+// mock DB 데이터
 export const MOCK_DB = {
+  // Total 탭 데이터
   total: [
     {
       id: "TOTAL-1001",
@@ -32,6 +34,7 @@ export const MOCK_DB = {
     },
   ],
 
+  // 수요 탭 데이터
   demand: [
     {
       id: "DEMAND-2001",
@@ -62,6 +65,7 @@ export const MOCK_DB = {
     },
   ],
 
+  // 공급 탭 데이터
   supply: [
     {
       id: "SUPPLY-3001",
