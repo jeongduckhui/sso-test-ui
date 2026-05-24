@@ -11,6 +11,10 @@ export const BIG_TABS = [
 ];
 
 // 탭별 조회조건 설정
+// 실무에서는 아마 퍼블리셔가 다 만들어놨을 거니까
+// 동적으로 만들 필요가 없음
+// 따라서 로직을 위해서 type, name만 있는 객체를 만들고
+// 값이 변할 때 세팅할 수 있게 하는 기능으로만 사용하면 될 듯.
 export const CONDITION_CONFIG = {
   // Total 탭 조회조건
   total: [

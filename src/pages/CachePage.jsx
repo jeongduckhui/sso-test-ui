@@ -9,7 +9,6 @@ export default function CachePage() {
   }, []);
 
   const fetchCodes = async () => {
-    debugger;
     const res = await api.post("/api/common-code/batch", [
       "CATEGORY",
       "COUNTRY",
