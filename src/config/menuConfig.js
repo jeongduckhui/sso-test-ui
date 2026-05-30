@@ -101,6 +101,12 @@ export const menuConfig = [
         path: "/snapshot-grid",
         icon: Database,
       },
+      {
+        key: "snapshotGrid",
+        label: "동적 그리드 엑셀",
+        path: "/dynamic-grid-excel",
+        icon: Database,
+      },
     ],
   },
   {

@@ -66,3 +66,25 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.deleted-row {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+
+.error-row {
+  background-color: #ffebee !important;
+}
+
+.AMT_COL {
+  background-color: #fff3e0;
+}
+
+.TOTAL_COL {
+  background-color: #e3f2fd;
+  font-weight: 700;
+}
+
+.ERROR_ROW {
+  background-color: #ffebee;
+}
