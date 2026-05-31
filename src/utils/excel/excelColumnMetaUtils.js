@@ -237,37 +237,35 @@ function isHiddenColumn(columnDef) {
  * @returns {object} ExcelUploadOption 구조
  */
 export function buildExcelUploadOption(options = {}) {
-  // 다중 헤더 사용 여부.
-  const useMultiHeader = Boolean(options.useMultiHeader);
-
-  // 템플릿 예제 행 포함 여부.
+  const columns = Array.isArray(options.columns) ? options.columns : [];
   const hasExampleRow = Boolean(options.hasExampleRow);
 
-  // 단일 헤더 기준 row index.
-  if (!useMultiHeader) {
-    return {
-      useMultiHeader: false,
-      headerStartRowIndex: 0,
-      headerEndRowIndex: 0,
-      dataStartRowIndex: hasExampleRow ? 2 : 1,
-      ignoreEmptyRow: true,
-      blockFormula: true,
-      includeErrorRows: true,
-    };
-  }
+  const headerDepth = resolveHeaderDepth(columns);
 
-  // 2단 헤더 기준 row index.
   return {
-    useMultiHeader: true,
+    useMultiHeader: headerDepth > 1,
     headerStartRowIndex: 0,
-    // headerEndRowIndex: 1,
-    // dataStartRowIndex: hasExampleRow ? 3 : 2,
-    headerEndRowIndex: 2,
-    dataStartRowIndex: hasExampleRow ? 4 : 3,
+    headerEndRowIndex: headerDepth - 1,
+    dataStartRowIndex: hasExampleRow ? headerDepth + 1 : headerDepth,
     ignoreEmptyRow: true,
     blockFormula: true,
     includeErrorRows: true,
   };
+}
+
+function resolveHeaderDepth(columns) {
+  if (!Array.isArray(columns) || columns.length === 0) {
+    return 1;
+  }
+
+  return columns.reduce((maxDepth, column) => {
+    const depth =
+      Array.isArray(column.headerPath) && column.headerPath.length > 0
+        ? column.headerPath.length
+        : 1;
+
+    return Math.max(maxDepth, depth);
+  }, 1);
 }
 
 /**

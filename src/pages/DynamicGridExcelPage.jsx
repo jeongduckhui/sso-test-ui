@@ -112,7 +112,7 @@ export default function DynamicGridExcelPage() {
    *
    * false이면 연도별 Total 컬럼만 생성한다.
    */
-  const [useQuarter, setUseQuarter] = useState(true);
+  // const [useQuarter, setUseQuarter] = useState(true);
 
   /**
    * 처리 중 여부.
@@ -137,16 +137,8 @@ export default function DynamicGridExcelPage() {
       selectedDimensions,
       startYm: searchForm.startYm,
       endYm: searchForm.endYm,
-      useQuarter,
-      useTotalOnly: !useQuarter,
     });
-  }, [
-    mode,
-    selectedDimensions,
-    searchForm.startYm,
-    searchForm.endYm,
-    useQuarter,
-  ]);
+  }, [mode, selectedDimensions, searchForm.startYm, searchForm.endYm]);
 
   /**
    * 기본 Grid 옵션.
@@ -372,10 +364,12 @@ export default function DynamicGridExcelPage() {
     try {
       setLoading(true);
 
+      const columns = buildColumns();
+
       await downloadTemplateExcel({
         fileName: "dynamic-grid-template.xlsx",
         sheetName: "DynamicGrid",
-        columns: buildColumns(),
+        columns,
         excludeHiddenColumns: true,
         useMultiHeader: true,
         includeExampleRow,
@@ -411,11 +405,13 @@ export default function DynamicGridExcelPage() {
     try {
       setLoading(true);
 
+      const columns = buildColumns();
+
       const result = await uploadDynamicGridExcel(file, {
         sheetName: "DynamicGrid",
-        columns: buildColumns(),
+        columns,
         option: buildExcelUploadOption({
-          useMultiHeader: true,
+          columns,
           hasExampleRow: includeExampleRow,
         }),
       });
@@ -615,18 +611,6 @@ export default function DynamicGridExcelPage() {
               <option value="V2">V2</option>
             </select>
           </label>
-
-          <div style={styles.label}>
-            Quarter
-            <label style={{ marginTop: 6 }}>
-              <input
-                type="checkbox"
-                checked={useQuarter}
-                onChange={(event) => setUseQuarter(event.target.checked)}
-              />
-              월별 컬럼 사용
-            </label>
-          </div>
         </div>
       </section>
 

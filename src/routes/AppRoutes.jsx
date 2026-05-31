@@ -18,6 +18,7 @@ import TxLogTestPage from "../pages/TxLogTestPage";
 import TxLogTestPageDBSetting from "../pages/TxLogTestPageDBSetting";
 import SnapshotGridPage from "../pages/SnapshotGridPage";
 import DynamicGridExcelPage from "../pages/DynamicGridExcelPage";
+import ExcelRegressionTestPage from "../pages/ExcelRegressionTestPage";
 
 function NotFoundPage() {
   return <div style={{ padding: 24 }}>404 - 페이지를 찾을 수 없습니다.</div>;
@@ -51,6 +52,10 @@ export default function AppRoutes() {
         <Route path="txlogdbsetting" element={<TxLogTestPageDBSetting />} />
         <Route path="snapshot-grid" element={<SnapshotGridPage />} />
         <Route path="dynamic-grid-excel" element={<DynamicGridExcelPage />} />
+        <Route
+          path="dynamic-grid-excel-test"
+          element={<ExcelRegressionTestPage />}
+        />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />
