@@ -113,6 +113,12 @@ export const menuConfig = [
         path: "/dynamic-grid-excel-test",
         icon: Database,
       },
+      {
+        key: "exceptionTest",
+        label: "예외 테스트",
+        path: "/exception-sample",
+        icon: Database,
+      },
     ],
   },
   {
