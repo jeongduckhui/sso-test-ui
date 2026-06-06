@@ -119,6 +119,12 @@ export const menuConfig = [
         path: "/exception-sample",
         icon: Database,
       },
+      {
+        key: "multiTabDimensionTemplate",
+        label: "멀티탭 디멘전 템플릿",
+        path: "/multi-tab-dimension-template",
+        icon: Database,
+      },
     ],
   },
   {

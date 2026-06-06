@@ -20,6 +20,7 @@ import SnapshotGridPage from "../pages/SnapshotGridPage";
 import DynamicGridExcelPage from "../pages/DynamicGridExcelPage";
 import ExcelRegressionTestPage from "../pages/ExcelRegressionTestPage";
 import ExceptionSamplePage from "../pages/ExceptionSamplePage";
+import MultiTabDimensionTemplatePage from "../pages/MultiTabDimensionTemplatePage";
 
 function NotFoundPage() {
   return <div style={{ padding: 24 }}>404 - 페이지를 찾을 수 없습니다.</div>;
@@ -58,6 +59,10 @@ export default function AppRoutes() {
           element={<ExcelRegressionTestPage />}
         />
         <Route path="exception-sample" element={<ExceptionSamplePage />} />
+        <Route
+          path="multi-tab-dimension-template"
+          element={<MultiTabDimensionTemplatePage />}
+        />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />
