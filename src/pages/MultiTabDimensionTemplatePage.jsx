@@ -81,6 +81,15 @@ const DIMENSION_MODES = {
   MODE: "MODE",
 };
 
+// Dimension 상태값을 상수로 관리한다.
+const DIMENSION_STATES = {
+  BASE: "BASE",
+  ALL: "ALL",
+  ALL_TAB: "ALL_TAB",
+  UPPER2: "UPPER2",
+  COLCHG: "COLCHG",
+};
+
 /*
 
 // 조회조건을 공통과 탭별로 나눠서 오버라이드로 관리할 수 있음.
@@ -188,7 +197,14 @@ const DEFAULT_SEARCH_FORM = {
 const TAB_POLICY = {
   [TAB_IDS.DRAM]: {
     // DRAM 탭에서 화면에 표시할 조회조건 그룹이다.
-    visibleGroups: ["period", "cascade", "metric", "dimension", "subtotal"],
+    visibleGroups: [
+      "period",
+      "cascade",
+      "metric",
+      "dimension",
+      "subtotal",
+      "test",
+    ],
 
     // DRAM 탭에서는 연계 셀렉트박스 4번째를 비활성화한다.
     disabledCascadeFields: ["level4"],
@@ -257,36 +273,36 @@ const CONTROL_POLICY = {
 function resolveDimensionState(activeTabId, dimensionMode) {
   // Tech 선택 시 상태값은 BASE이다.
   if (dimensionMode === DIMENSION_MODES.TECH) {
-    return "BASE";
+    return DIMENSION_STATES.BASE;
   }
 
   // TDM 선택 시 상태값은 ALL로 별도 취급한다.
   if (dimensionMode === DIMENSION_MODES.TDM) {
-    return "ALL";
+    return DIMENSION_STATES.ALL;
   }
 
   // Mode + DRAM은 UPPER2이다.
   if (dimensionMode === DIMENSION_MODES.MODE && activeTabId === TAB_IDS.DRAM) {
-    return "UPPER2";
+    return DIMENSION_STATES.UPPER2;
   }
 
   // Mode + NAND는 BASE이다.
   if (dimensionMode === DIMENSION_MODES.MODE && activeTabId === TAB_IDS.NAND) {
-    return "BASE";
+    return DIMENSION_STATES.BASE;
   }
 
   // APP + DRAM은 UPPER2이다.
   if (dimensionMode === DIMENSION_MODES.APP && activeTabId === TAB_IDS.DRAM) {
-    return "UPPER2";
+    return DIMENSION_STATES.UPPER2;
   }
 
   // APP + NAND는 COLCHG이다.
   if (dimensionMode === DIMENSION_MODES.APP && activeTabId === TAB_IDS.NAND) {
-    return "COLCHG";
+    return DIMENSION_STATES.COLCHG;
   }
 
-  // 아무 것도 선택하지 않으면 BASE를 기본 상태로 본다.
-  return "BASE";
+  // 아무 것도 선택하지 않으면 COMMON + 현재 탭 디멘전을 모두 보여준다.
+  return DIMENSION_STATES.ALL_TAB;
 }
 
 // 현재 탭과 상태값 기준으로 Dimension 팝업에 노출 가능한 항목을 계산한다.
@@ -302,9 +318,16 @@ function getAvailableDimensionItems(
   const dimensionState = resolveDimensionState(activeTabId, dimensionMode);
 
   // TDM 선택 시 ALL 디멘전 항목을 모두 컬럼 후보로 본다.
-  if (dimensionState === "ALL") {
+  if (dimensionState === DIMENSION_STATES.ALL) {
     return dimensionItems
       .filter((item) => item.scope === "COMMON")
+      .sort((a, b) => a.order - b.order);
+  }
+
+  // 아무 것도 선택하지 않으면 COMMON + 현재 탭 디멘전을 모두 보여준다.
+  if (dimensionState === DIMENSION_STATES.ALL_TAB) {
+    return dimensionItems
+      .filter((item) => item.scope === "COMMON" || item.scope === activeTabId)
       .sort((a, b) => a.order - b.order);
   }
 
@@ -1230,6 +1253,11 @@ export default function MultiTabDimensionTemplatePage() {
     }
   }
 
+  // 현재 필드가 탭 정책에 의해 숨김/보임 되는지 확인한다.
+  function isVisibleGroup(groupName) {
+    return TAB_POLICY[activeTabId].visibleGroups.includes(groupName);
+  }
+
   // 현재 필드가 탭 정책에 의해 비활성화되는지 확인한다.
   function isCascadeDisabled(field) {
     return TAB_POLICY[activeTabId].disabledCascadeFields.includes(field);
@@ -1354,6 +1382,21 @@ export default function MultiTabDimensionTemplatePage() {
           ))}
         </div>
       </section>
+
+      {isVisibleGroup("test") && (
+        <section style={styles.panel}>
+          <div style={styles.panelTitle}>TEST 조회조건</div>
+
+          <div style={styles.searchGrid}>
+            <TextField
+              label="테스트 조회조건"
+              value={searchForm.testValue ?? ""}
+              maxLength={20}
+              onChange={(value) => handleSearchFormChange("testValue", value)}
+            />
+          </div>
+        </section>
+      )}
 
       <section style={styles.toolbar}>
         <button type="button" onClick={handleSearch} disabled={loading}>
