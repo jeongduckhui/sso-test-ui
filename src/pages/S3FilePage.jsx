@@ -3,7 +3,7 @@ import api from "../api/axios";
 import { useAuth } from "../auth/AuthContext";
 import PageContainer from "../components/common/PageContainer";
 
-export default function FilePage() {
+export default function S3FilePage() {
   const { isLoggedIn } = useAuth();
 
   const [file, setFile] = useState(null);

@@ -5,7 +5,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import Home from "../pages/Home";
 import LoginPage from "../pages/LoginPage";
 import AutoLoginPage from "../pages/AutoLoginPage";
-import FilePage from "../pages/FilePage";
+import S3FilePage from "../pages/S3FilePage";
 import PagingPage from "../pages/PagingPage";
 import MailLogPage from "../pages/MailLogPage";
 import MailSystemPage from "../pages/MailSystemPage";
@@ -22,6 +22,7 @@ import ExcelRegressionTestPage from "../pages/ExcelRegressionTestPage";
 import ExceptionSamplePage from "../pages/ExceptionSamplePage";
 import MultiTabDimensionTemplatePage from "../pages/MultiTabDimensionTemplatePage";
 import MultiTabSplitDimensionPage from "../pages/MultiTabSplitDimensionPage";
+import NasFilePage from "../pages/NasFilePage";
 
 function NotFoundPage() {
   return <div style={{ padding: 24 }}>404 - 페이지를 찾을 수 없습니다.</div>;
@@ -42,7 +43,8 @@ export default function AppRoutes() {
         }
       >
         <Route index element={<Home />} />
-        <Route path="files" element={<FilePage />} />
+        <Route path="files/s3" element={<S3FilePage />} />
+        <Route path="files/nas" element={<NasFilePage />} />
         <Route path="mail/user" element={<MailUserPage />} />
         <Route path="mail/system" element={<MailSystemPage />} />
         <Route path="mail/log" element={<MailLogPage />} />

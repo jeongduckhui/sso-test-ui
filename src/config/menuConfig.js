@@ -24,9 +24,15 @@ export const menuConfig = [
     section: "공통 기능",
     items: [
       {
-        key: "files",
-        label: "파일 관리",
-        path: "/files",
+        key: "s3Files",
+        label: "S3 파일 관리",
+        path: "/files/s3",
+        icon: FolderOpen,
+      },
+      {
+        key: "nasFiles",
+        label: "NAS 파일 관리",
+        path: "/files/nas",
         icon: FolderOpen,
       },
       {
