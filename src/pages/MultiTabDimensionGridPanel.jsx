@@ -662,6 +662,13 @@ export default function MultiTabDimensionGridPanel({
   activeTabKey,
   activeTabName,
   isActive,
+
+  // 공통 값
+  loginUserId,
+  commonSelectValue,
+  commonSelectOptions,
+
+  // 탭별 값
   tabState,
   updateTabState,
 }) {
@@ -881,6 +888,8 @@ export default function MultiTabDimensionGridPanel({
       const request = {
         activeTabKey,
         activeTabName,
+        loginUserId,
+        commonSelectValue,
         searchForm,
       };
 
@@ -1060,8 +1069,8 @@ export default function MultiTabDimensionGridPanel({
         </button>
 
         <span style={styles.statusText}>
-          탭 Key: {activeTabKey} / 탭: {activeTabName} / strSrcType:{" "}
-          {strSrcType} / Row: {rowData.length}
+          탭 Key: {activeTabKey} / 탭: {activeTabName} / 접속자ID: {loginUserId}{" "}
+          / 공통구분: {commonSelectValue || "전체"} / Row: {rowData.length}
         </span>
       </section>
 
