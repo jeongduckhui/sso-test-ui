@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 
-import MultiTabDimensionGridPanel, {
-  createInitialTabState,
-} from "./MultiTabDimensionGridPanel";
+import DRAMTabPanel from "./DRAMTabPanel";
+import NANDTabPanel from "./NANDTabPanel";
+import { createInitialTabState } from "./MultiTabDimensionGridPanelVer2";
 
 const TAB_KEYS = {
   DRAM: "1",
@@ -61,19 +61,17 @@ export default function MultiTabSplitDimensionPage() {
   const activeTab =
     TAB_ITEMS.find((tab) => tab.key === activeTabKey) ?? TAB_ITEMS[0];
 
-  const activeTabState = tabStates[activeTab.key];
-
   const updateTabState = useCallback((tabKey, updater) => {
     setTabStates((prev) => updateTabStateByKey(prev, tabKey, updater));
   }, []);
 
   return (
     <div style={styles.page}>
-      <h2 style={styles.title}>Multi Tab Split Dimension Page</h2>
+      <h2 style={styles.title}>Multi Tab Split Dimension Page Ver2</h2>
 
       <p style={styles.description}>
-        DRAM/NAND 탭별 상태는 tabStates에서 관리하고, 접속자ID와 공통
-        셀렉트박스는 tabStates 밖에서 관리합니다.
+        DRAM/NAND 탭 화면 파일은 분리하고, 실제 조회조건/그리드 공통 로직은
+        MultiTabDimensionGridPanelVer2에서 관리합니다.
       </p>
 
       <div style={styles.commonBox}>
@@ -110,16 +108,27 @@ export default function MultiTabSplitDimensionPage() {
         ))}
       </div>
 
-      <MultiTabDimensionGridPanel
-        activeTabKey={activeTab.key}
-        activeTabName={activeTab.label}
-        isActive
-        loginUserId={loginUserId}
-        commonSelectValue={commonSelectValue}
-        commonSelectOptions={COMMON_SELECT_OPTIONS}
-        tabState={activeTabState}
-        updateTabState={updateTabState}
-      />
+      {activeTab.key === TAB_KEYS.DRAM && (
+        <DRAMTabPanel
+          isActive
+          loginUserId={loginUserId}
+          commonSelectValue={commonSelectValue}
+          commonSelectOptions={COMMON_SELECT_OPTIONS}
+          tabState={tabStates[TAB_KEYS.DRAM]}
+          updateTabState={updateTabState}
+        />
+      )}
+
+      {activeTab.key === TAB_KEYS.NAND && (
+        <NANDTabPanel
+          isActive
+          loginUserId={loginUserId}
+          commonSelectValue={commonSelectValue}
+          commonSelectOptions={COMMON_SELECT_OPTIONS}
+          tabState={tabStates[TAB_KEYS.NAND]}
+          updateTabState={updateTabState}
+        />
+      )}
     </div>
   );
 }
