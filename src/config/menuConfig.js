@@ -137,6 +137,12 @@ export const menuConfig = [
         path: "/multi-tab-split-dimension-template",
         icon: Database,
       },
+      {
+        key: "multiTabSplitDimensionTemplateVer2",
+        label: "멀티탭 스플릿 디멘전 템플릿 Ver2",
+        path: "/multi-tab-split-dimension-template-ver2",
+        icon: Database,
+      },
     ],
   },
   {

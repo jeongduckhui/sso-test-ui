@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 
-import MultiTabDimensionGridPanel, {
-  createInitialTabState,
-} from "./MultiTabDimensionGridPanel";
+import DRAMTabPanel from "./DRAMTabPanel";
+import NANDTabPanel from "./NANDTabPanel";
+import { createInitialTabState } from "./MultiTabDimensionGridPanelVer2";
 
 const TAB_KEYS = {
   DRAM: "1",
@@ -14,7 +14,7 @@ const TAB_ITEMS = [
   { key: TAB_KEYS.NAND, label: "NAND" },
 ];
 
-// 공통 셀렉트박스 옵션
+// 공통 셀렉트박스 옵션이다.
 const COMMON_SELECT_OPTIONS = [
   { value: "", label: "전체" },
   { value: "DOMESTIC", label: "국내" },
@@ -45,23 +45,18 @@ function updateTabStateByKey(tabStates, tabKey, updater) {
   };
 }
 
-export default function MultiTabSplitDimensionPage() {
-  // 접속자ID는 공통 상태
+export default function MultiTabSplitDimensionPageVer2() {
+  // 접속자ID는 공통 상태이다.
   const [loginUserId] = useState("duckhui");
 
-  // 모든 탭이 같이 쓰는 공통 셀렉트박스 값
+  // 모든 탭이 같이 쓰는 공통 셀렉트박스 값이다.
   const [commonSelectValue, setCommonSelectValue] = useState("");
 
-  // 현재 활성 탭
+  // 현재 활성 탭이다.
   const [activeTabKey, setActiveTabKey] = useState(TAB_KEYS.DRAM);
 
-  // 탭별 상태
+  // 탭별 상태이다.
   const [tabStates, setTabStates] = useState(createInitialTabStates);
-
-  const activeTab =
-    TAB_ITEMS.find((tab) => tab.key === activeTabKey) ?? TAB_ITEMS[0];
-
-  const activeTabState = tabStates[activeTab.key];
 
   const updateTabState = useCallback((tabKey, updater) => {
     setTabStates((prev) => updateTabStateByKey(prev, tabKey, updater));
@@ -69,11 +64,11 @@ export default function MultiTabSplitDimensionPage() {
 
   return (
     <div style={styles.page}>
-      <h2 style={styles.title}>Multi Tab Split Dimension Page</h2>
+      <h2 style={styles.title}>Multi Tab Split Dimension Page Ver2</h2>
 
       <p style={styles.description}>
-        DRAM/NAND 탭별 상태는 tabStates에서 관리하고, 접속자ID와 공통
-        셀렉트박스는 tabStates 밖에서 관리합니다.
+        DRAM/NAND 탭 화면 파일은 분리하고, 실제 조회조건/그리드 공통 로직은
+        MultiTabDimensionGridPanelVer2에서 관리합니다.
       </p>
 
       <div style={styles.commonBox}>
@@ -110,16 +105,27 @@ export default function MultiTabSplitDimensionPage() {
         ))}
       </div>
 
-      <MultiTabDimensionGridPanel
-        activeTabKey={activeTab.key}
-        activeTabName={activeTab.label}
-        isActive
-        loginUserId={loginUserId}
-        commonSelectValue={commonSelectValue}
-        commonSelectOptions={COMMON_SELECT_OPTIONS}
-        tabState={activeTabState}
-        updateTabState={updateTabState}
-      />
+      {activeTabKey === TAB_KEYS.DRAM && (
+        <DRAMTabPanel
+          isActive
+          loginUserId={loginUserId}
+          commonSelectValue={commonSelectValue}
+          commonSelectOptions={COMMON_SELECT_OPTIONS}
+          tabState={tabStates[TAB_KEYS.DRAM]}
+          updateTabState={updateTabState}
+        />
+      )}
+
+      {activeTabKey === TAB_KEYS.NAND && (
+        <NANDTabPanel
+          isActive
+          loginUserId={loginUserId}
+          commonSelectValue={commonSelectValue}
+          commonSelectOptions={COMMON_SELECT_OPTIONS}
+          tabState={tabStates[TAB_KEYS.NAND]}
+          updateTabState={updateTabState}
+        />
+      )}
     </div>
   );
 }

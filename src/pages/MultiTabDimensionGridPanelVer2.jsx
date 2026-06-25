@@ -466,7 +466,6 @@ function isAllowedByMetricHeaders(parsed, metricHeaders) {
 // strSrcType 분기를 반영한 고정 컬럼 생성 함수이다.
 // 실제 차세대의 if (strSrcType === "UPPER2") 분기 위치를 이 함수에 모았다.
 function buildFixedColumnDefs(searchForm, strSrcType) {
-  debugger;
   const selectedDimensions = searchForm.selectedDimensions ?? [];
   const fixedDimensionKeys = getFixedDimensionKeys(searchForm.dimensionMode);
 
@@ -503,7 +502,6 @@ function buildFixedColumnDefs(searchForm, strSrcType) {
 
 // 응답 rowData의 key를 기준으로 3단 동적 헤더를 생성한다.
 function buildDynamicColumnDefsFromRows(rows, searchForm) {
-  debugger;
   if (!rows || rows.length === 0) {
     return [];
   }
@@ -532,7 +530,6 @@ function buildDynamicColumnDefsFromRows(rows, searchForm) {
       return a.periodOrder - b.periodOrder;
     });
 
-  debugger;
 
   const metricMap = new Map();
 
@@ -569,7 +566,6 @@ function buildDynamicColumnDefsFromRows(rows, searchForm) {
 }
 
 function buildGridColumnDefs(rows, searchForm, activeTabKey) {
-  debugger;
   const strSrcType = resolveSrcType(activeTabKey, searchForm.dimensionMode);
 
   const fixedColumns = buildFixedColumnDefs(searchForm, strSrcType);
