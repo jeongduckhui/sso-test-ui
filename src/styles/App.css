@@ -635,3 +635,31 @@ button {
     flex-direction: column;
   }
 }
+
+/* 비정형 그룹 헤더 */
+
+.reverse-l-header-grid .header-col-a {
+  background-color: #ffc000;
+}
+
+.reverse-l-header-grid .header-col-b {
+  background-color: #e7e6e6;
+}
+
+.reverse-l-header-grid .header-col-c {
+  background-color: #70ad47;
+}
+
+.reverse-l-header-grid .header-col-d {
+  background-color: #8eaadb;
+}
+
+.reverse-l-header-grid .ag-header-cell-label,
+.reverse-l-header-grid .ag-header-group-cell-label {
+  justify-content: center;
+}
+
+.reverse-l-header-grid .ag-header-cell-text,
+.reverse-l-header-grid .ag-header-group-text {
+  margin: 0 auto;
+}

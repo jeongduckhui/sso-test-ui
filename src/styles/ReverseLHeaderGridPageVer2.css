@@ -1,0 +1,120 @@
+.reverse-l-page {
+  padding: 20px;
+}
+
+.reverse-l-page h2 {
+  margin: 0 0 24px;
+}
+
+.reverse-l-desc-box {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 14px;
+  margin-bottom: 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  background: #fff;
+  gap: 4px;
+}
+
+/*
+ * 컬럼이 많아져도 화면 안에서 가로 스크롤로 볼 수 있게 하는 영역.
+ */
+.reverse-l-grid-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/*
+ * Grid 자체 크기.
+ */
+.reverse-l-grid {
+  width: 100%;
+  min-width: 1200px;
+  height: 520px;
+}
+
+/*
+ * AG Grid 테마 기본 헤더 배경/선 제거.
+ */
+.reverse-l-grid {
+  --ag-header-background-color: transparent;
+  --ag-header-cell-hover-background-color: transparent;
+  --ag-header-cell-moving-background-color: transparent;
+  --ag-border-color: #d9d9d9;
+}
+
+/*
+ * 부모/자식 헤더 공통 설정.
+ */
+.reverse-l-grid .ag-header-cell,
+.reverse-l-grid .ag-header-group-cell {
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+/*
+ * 헤더 내부 좌우 패딩 제거.
+ */
+.reverse-l-grid .ag-header-cell-comp-wrapper,
+.reverse-l-grid .ag-header-cell-label,
+.reverse-l-grid .ag-header-group-cell-label {
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/*
+ * 부모 헤더와 마지막 자식 컬럼 헤더 색상.
+ */
+.reverse-l-grid .reverse-l-header-a {
+  background-color: #ffc000 !important;
+}
+
+.reverse-l-grid .reverse-l-header-b {
+  background-color: #e7e6e6 !important;
+}
+
+.reverse-l-grid .reverse-l-header-c {
+  background-color: #70ad47 !important;
+}
+
+.reverse-l-grid .reverse-l-header-d {
+  background-color: #8eaadb !important;
+}
+
+/*
+ * 헤더 텍스트 중앙 정렬.
+ */
+.reverse-l-grid .ag-header-cell-label,
+.reverse-l-grid .ag-header-group-cell-label {
+  justify-content: center;
+}
+
+.reverse-l-grid .ag-header-cell-text,
+.reverse-l-grid .ag-header-group-text {
+  margin: 0 auto;
+}
+
+/*
+ * 부모헤더의 역 ㄱ자 모양을 더 자연스럽게 보이도록
+ * 헤더 row 사이의 선을 제거한다.
+ */
+.reverse-l-grid .ag-header-row {
+  border-bottom: none !important;
+}
+
+/*
+ * 바디 셀 중앙 정렬.
+ */
+.reverse-l-grid .reverse-l-body-cell {
+  text-align: center;
+}
+
+/*
+ * 데이터 영역은 행 구분선만 약하게 유지한다.
+ */
+.reverse-l-grid .ag-cell {
+  border-right: none;
+}

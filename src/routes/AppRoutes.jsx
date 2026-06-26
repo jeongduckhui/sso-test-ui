@@ -24,6 +24,8 @@ import MultiTabDimensionTemplatePage from "../pages/MultiTabDimensionTemplatePag
 import MultiTabSplitDimensionPage from "../pages/MultiTabSplitDimensionPage";
 import NasFilePage from "../pages/NasFilePage";
 import MultiTabSplitDimensionPageVer2 from "../pages/MultiTabSplitDimensionPageVer2";
+import ReverseLHeaderGridPage from "../pages/ReverseLHeaderGridPage";
+import ReverseLHeaderGridPageVer2 from "../pages/ReverseLHeaderGridPageVer2";
 
 function NotFoundPage() {
   return <div style={{ padding: 24 }}>404 - 페이지를 찾을 수 없습니다.</div>;
@@ -74,6 +76,14 @@ export default function AppRoutes() {
         <Route
           path="multi-tab-split-dimension-template-ver2"
           element={<MultiTabSplitDimensionPageVer2 />}
+        />
+        <Route
+          path="reverse-l-header-grid"
+          element={<ReverseLHeaderGridPage />}
+        />
+        <Route
+          path="reverse-l-header-grid-ver2"
+          element={<ReverseLHeaderGridPageVer2 />}
         />
       </Route>
 

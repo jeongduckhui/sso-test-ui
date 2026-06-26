@@ -143,6 +143,18 @@ export const menuConfig = [
         path: "/multi-tab-split-dimension-template-ver2",
         icon: Database,
       },
+      {
+        key: "reverseLHeaderGridPage",
+        label: "비정형 그룹 헤더",
+        path: "/reverse-l-header-grid",
+        icon: Database,
+      },
+      {
+        key: "reverseLHeaderGridPageVer2",
+        label: "비정형 그룹 헤더 Ver2",
+        path: "/reverse-l-header-grid-ver2",
+        icon: Database,
+      },
     ],
   },
   {
