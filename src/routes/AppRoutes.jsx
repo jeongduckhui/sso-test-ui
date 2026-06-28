@@ -26,6 +26,7 @@ import NasFilePage from "../pages/NasFilePage";
 import MultiTabSplitDimensionPageVer2 from "../pages/MultiTabSplitDimensionPageVer2";
 import ReverseLHeaderGridPage from "../pages/ReverseLHeaderGridPage";
 import ReverseLHeaderGridPageVer2 from "../pages/ReverseLHeaderGridPageVer2";
+import QueryTraceSamplePage from "../pages/QueryTraceSamplePage";
 
 function NotFoundPage() {
   return <div style={{ padding: 24 }}>404 - 페이지를 찾을 수 없습니다.</div>;
@@ -85,6 +86,7 @@ export default function AppRoutes() {
           path="reverse-l-header-grid-ver2"
           element={<ReverseLHeaderGridPageVer2 />}
         />
+        <Route path="query-trace-sample" element={<QueryTraceSamplePage />} />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />

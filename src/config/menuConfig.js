@@ -155,6 +155,12 @@ export const menuConfig = [
         path: "/reverse-l-header-grid-ver2",
         icon: Database,
       },
+      {
+        key: "queryTraceSamplePage",
+        label: "쿼리보기",
+        path: "/query-trace-sample",
+        icon: Database,
+      },
     ],
   },
   {
